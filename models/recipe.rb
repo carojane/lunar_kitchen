@@ -9,7 +9,7 @@ class Recipe
   end
 
   def self.all
-    query = "SELECT * FROM recipes"
+    query = "SELECT * FROM recipes ORDER BY name"
 
     all_recipes = []
     DatabaseQuery.db_connection do |conn|
@@ -63,6 +63,11 @@ class Recipe
   end
 
   def ingredients
-    recipe[ingredients]
+    @ingredients = @recipe['ingredients']
+    ingredients_new = []
+    @ingredients.each do |ingredient|
+      ingredients_new << Ingredient.new(ingredient)
+    end
+    ingredients_new
   end
 end
